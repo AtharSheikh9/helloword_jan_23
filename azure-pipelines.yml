@@ -5,13 +5,17 @@ pool:
   name: Pool-123  # Replace with the name of your self-hosted agent pool
 
 steps:
+- task: UseJavaVersion@0
+  inputs:
+    versionSpec: '21.0.1'
+    addToPath: true
+    setAsDefault: true
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JAVA_HOME'
-    jdkVersionOption: '21.0.1'
-    jdkArchitectureOption: 'x64'
+    goals: 'package'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+
