@@ -9,7 +9,7 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
+    javaHomeOption: 'JAVA_HOME'
     jdkVersionOption: '21.0.1'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
