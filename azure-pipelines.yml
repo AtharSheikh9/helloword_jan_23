@@ -5,6 +5,7 @@ pool:
   name: Windows_Pool
   demands:
     - maven    # Make sure the agent in the pool has Maven installed
+    - Agent.Version -gtVersion 3.232.1
 
 jobs:
 - job: Build
