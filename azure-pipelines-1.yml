@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: Pool-123
+  name: Windows_Pool
 
 steps:
 - task: Maven@3
