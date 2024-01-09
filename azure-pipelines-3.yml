@@ -1,0 +1,25 @@
+trigger:
+- main   # Change this to the branch you want to trigger the build
+
+pool:
+  name: Windows_Pool
+  demands:
+    - agent.name -equals windows_agent
+
+jobs:
+- job: Build
+  displayName: 'Build Maven Project'
+  pool:
+    name: Windows_Pool
+  steps:
+  - task: Maven@4
+    inputs:
+      mavenPomFile: 'pom.xml'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      codeCoverageToolOption: 'Cobertura'
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
