@@ -2,22 +2,24 @@ trigger:
 - main   # Change this to the branch you want to trigger the build
 
 pool:
-  name: Windows_Pool
-  demands:
-  - agent.name -equals windows_agent
-  - maven
-  - Agent.Version -gtVersion 2.163.1
-
+  vmImage: 'windows-latest'  # Use the latest Windows image
 
 jobs:
 - job: Build
   displayName: 'Build Maven Project'
+  pool:
+    name: Windows_Pool
   steps:
+  - task: UseDotNet@2
+    inputs:
+      version: '3.x'  # Use .NET Core 3.x
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
   - task: Maven@3
     inputs:
-      mavenPomFile: 'path/to/your/pom.xml'  # Adjust the path based on your project structure
+      mavenPomFile: 'path/to/your/pom.xml'
       goals: 'clean install'
-      options: '-Xmx3072m'   # Optional: Adjust JVM memory settings as needed
+      options: '-Xmx3072m'
       publishJUnitResults: true
     displayName: 'Build and test'
 
