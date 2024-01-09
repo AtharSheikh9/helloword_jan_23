@@ -4,9 +4,10 @@ trigger:
 pool:
   name: Windows_Pool
   demands:
-    - agent.name -equals windows_agent
-    # Uncomment the line below if Maven is required
-    # - maven
+  - agent.name -equals windows_agent
+  - maven
+  - Agent.Version -gtVersion 2.163.1
+
 
 jobs:
 - job: Build
