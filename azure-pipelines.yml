@@ -1,20 +1,21 @@
 trigger:
-- main
+- main   # Change this to the branch you want to trigger the build
 
 pool:
-  name: Windows_Pool  # Replace with the name of your self-hosted agent pool
+  name: Windows_Pool
+  demands:
+    - maven    # Make sure the agent in the pool has Maven installed
 
-steps:
-- task: UseJavaVersion@0
-  inputs:
-    versionSpec: '21.0.1'
-    addToPath: true
-    setAsDefault: true
+jobs:
+- job: Build
+  displayName: 'Build Maven Project'
+  steps:
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'path/to/your/pom.xml'  # Adjust the path based on your project structure
+      goals: 'clean install'
+      options: '-Xmx3072m'   # Optional: Adjust JVM memory settings as needed
+      publishJUnitResults: true
+    displayName: 'Build and test'
 
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    goals: 'package'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+  # Additional steps can be added here, such as deploying artifacts, running additional tests, etc.
