@@ -4,8 +4,9 @@ trigger:
 pool:
   name: Windows_Pool
   demands:
-    # - maven    # Make sure the agent in the pool has Maven installed
-    agent.name -equals windows_agent
+    - agent.name -equals windows_agent
+    # Uncomment the line below if Maven is required
+    # - maven
 
 jobs:
 - job: Build
